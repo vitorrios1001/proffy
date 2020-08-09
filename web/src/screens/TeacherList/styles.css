@@ -11,47 +11,31 @@
   color: var(--color-text-in-primary);
 }
 
-#search-teachers .input-block {
-  position: relative;
+#search-teachers span.field-error {
+  color: var(--color-title-in-primary);
 }
 
-/* Pega todo input-block a partir do segundo child
-  Alternativa para 
-
-#search-teachers .input-block:not(:first-child) {
-  margin-top: 1.4rem;
-}
-*/
-
-#search-teachers .input-block + .input-block {
-  margin-top: 1.4rem;
-} 
-
-#search-teachers .input-block label {
-  font-size: 1.4rem;
-}
-
-#search-teachers .input-block input {
+#search-teachers button {
+  background: var(--color-secundary);
   width: 100%;
+  margin-top: 2.6rem;
+  font-size: 2rem;
   height: 5.6rem;
-  margin-top: 0.8rem;
   border-radius: 0.8rem;
-  background: var(--color-input-background);
-  border: 1px solid var(--color-line-in-white);
-  outline: 0;
-  padding: 0 1.6rem;
-  font: 1.6rem Archivo;
+  transition: background 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#search-teachers .input-block:focus-within::after {
-  content: "";
-  width: calc(100% - 3.2rem);
-  height: 2px;
-  background: var(--color-primary-light);
-  position: absolute;
-  left: 1.6rem;
-  right: 1.6rem;
-  bottom: 0;
+#search-teachers button img {
+  width: 2.4rem;
+  margin-right: 1.6rem;
+}
+
+#search-teachers button:hover {
+  background: var(--color-secundary-dark);
 }
 
 #page-teacher-list main {
@@ -66,19 +50,36 @@
 
   #search-teachers {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 3fr 3fr 2fr 1fr;
     column-gap: 16px;
     position: absolute;
     bottom: -28px;
   }
 
+  #search-teachers .select-block + .select-block,
   #search-teachers .input-block + .input-block {
-    margin-top: 0;
+    margin-top: 0!important;
   }
 
   #page-teacher-list main {
     padding: 32px 0;
     max-width: 740px;
     margin: 0 auto;
+  }
+
+  #search-teachers button {
+    margin-top: 3.2rem;
+  }
+
+  #search-teachers button img {
+    margin: 0;
+  }
+
+  #search-teachers button span {
+    display: none;
+  }
+
+  #search-teachers span.field-error {
+    color: red;
   }
 }

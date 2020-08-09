@@ -1,35 +1,46 @@
 import React from 'react'
 
+import { TeacherResponse } from '../../../../models/teacherModel'
+import { formatterCurrencyValue } from '../../../../utils/formatter'
+import { useConnectionsEffects } from '../../../../providers/connectionsProvider'
+
 import whatsappIcon from '../../../../assets/images/icons/whatsapp.svg'
 
 import './styles.css'
 
-const TeacherItem = () => {
+interface Props {
+  teacher: TeacherResponse
+}
+
+const TeacherItem = ({ teacher }: Props) => {
+  const { createNewConnection } = useConnectionsEffects()
 
   return (
     <article className="teacher-item">
       <header>
-        <img src="https://avatars3.githubusercontent.com/u/29044736?s=460&u=e46b41d507610dce38d03e20822607f5a491182b&v=4" alt="Vitor Rios" />
-
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Vitor Rios</strong>
-          <span>Informática</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 100,00</strong>
+          <strong>{formatterCurrencyValue(teacher.cost)}</strong>
         </p>
-        <button type="button">
+        <a
+          href={`https://wa.me/${teacher.whatsapp}`}
+          onClick={() => createNewConnection(teacher.user_id)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src={whatsappIcon} alt="Whatsapp" />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   )

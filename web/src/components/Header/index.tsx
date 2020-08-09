@@ -8,11 +8,12 @@ import backIcon from '../../assets/images/icons/back.svg'
 import './styles.css'
 
 interface Props {
-  title?: string
+  title: string
+  description?: string
   children?: ReactNode | ReactNodeArray
 }
 
-const Header = ({ title, children }: Props) => {
+const Header = ({ title, description, children }: Props) => {
   return (
     <header className="page-header">
       <div className="top-bar-container">
@@ -24,6 +25,7 @@ const Header = ({ title, children }: Props) => {
 
       <div className="header-content">
         <strong>{title}</strong>
+        {description && <p>{description}</p>}
         {children}
       </div>
     </header>
