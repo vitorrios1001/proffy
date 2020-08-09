@@ -6,6 +6,8 @@ const routes = express.Router()
 const classesController = new ClassesController()
 const connectionsController = new ConnectionsController()
 
+routes.get('/', (req, res) => res.status(200).json({ status: 'Online api' }))
+
 routes.get('/classes', classesController.index )
 routes.post('/classes', classesController.create )
 
