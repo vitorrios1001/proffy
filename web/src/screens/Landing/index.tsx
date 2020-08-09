@@ -1,5 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+import {
+  useConnectionsState,
+  useConnectionsEffects,
+} from '../../providers/connectionsProvider'
 
 import imgLogo from '../../assets/images/logo.svg'
 import imgLanding from '../../assets/images/landing.svg'
@@ -11,6 +17,12 @@ import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 import './styles.css'
 
 const Landing = () => {
+  const { totalConnections } = useConnectionsState()
+  const { getTotalConnections } = useConnectionsEffects()
+  
+  React.useEffect(() => {
+    getTotalConnections()
+  }, [])
 
   return (
     <div id="page-landing">
@@ -39,7 +51,7 @@ const Landing = () => {
         </div>
 
         <span className="total-connections">
-          Total de 200 conexões já realizadas
+          Total de {totalConnections} conexões já realizadas
           <img src={purpleHeartIcon} alt="Coração roxo" />
         </span>
 
