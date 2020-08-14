@@ -6,6 +6,9 @@ import TeacherList from '../screens/TeacherList'
 import TeacherForm from '../screens/TeacherForm'
 
 const Routes = () => {
+  React.useEffect(() => {
+    console.log('version:', process.env.REACT_APP_VERSION)
+  }, [])
 
   return (
     <BrowserRouter>

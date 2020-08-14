@@ -1,7 +1,7 @@
 import apisauce from 'apisauce'
 
 const api = apisauce.create({
-  baseURL: 'http://localhost:3333'
+  baseURL: process.env.REACT_APP_HOST_API
 })
 
 export default api
