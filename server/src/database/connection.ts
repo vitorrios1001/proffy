@@ -1,14 +1,14 @@
 import knex from 'knex'
-import path from 'path'
-
-const filename = process.env.NODE_ENV === 'development'
-? path.resolve(__dirname, '..', '..', 'database', 'database.sqlite')
-: path.resolve(__dirname, '..', '..', '..', 'database', 'database.sqlite')
+import config from '../config'
 
 const db = knex({
-  client: 'sqlite3',
+  client: 'pg',
+  version: '7.2',
   connection: {
-    filename,
+    host : config.DB.HOST,
+    user : config.DB.USER,
+    password : config.DB.PASSWORD,
+    database : config.DB.NAME
   },
   useNullAsDefault: true,
 })
