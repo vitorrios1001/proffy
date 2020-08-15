@@ -7,8 +7,8 @@
     "build": "rm -rf dist && tsc && cp .env dist/.env",
     "start": "NODE_ENV=production node dist/src/server.js",
     "dev": "NODE_ENV=development tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+    "knex:migrate": "NODE_ENV=production knex --knexfile knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "NODE_ENV=production knex --knexfile knexfile.ts migrate:rollback"
   },
   "dependencies": {
     "cors": "^2.8.5",
