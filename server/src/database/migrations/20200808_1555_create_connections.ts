@@ -12,7 +12,7 @@ export async function up(knex: Knex) {
       .onUpdate('CASCADE')
 
     table.timestamp('create_at')
-      .defaultTo(knex.raw('CURRENT_TIMESTAMP'))
+      .defaultTo('now()')
       .notNullable()
   })
 }
