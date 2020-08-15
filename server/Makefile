@@ -12,7 +12,6 @@ run-dev:
 deploy:
 	@[ -f .env ] 
 	@echo "---- Updating project ----"
-	@git pull
 	@npm install
 	@echo "---- Running Database: Proffy Production----"
 	@docker-compose -f docker-compose.yml down
