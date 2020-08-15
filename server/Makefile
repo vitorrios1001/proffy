@@ -10,6 +10,7 @@ run-dev:
 .PHONY: deploy
 
 deploy:
+	@[ -f .env ] 
 	@echo "---- Updating project ----"
 	@git pull
 	@npm install

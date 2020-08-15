@@ -1,8 +1,19 @@
+# Files by extensions
 
 *.sqlite
+
+# directories
+
 /dist
 /database
+
+# .envs
 
 .env
 .env.development
 .env.production
+
+# files
+
+package-lock.json
+yarn.lock
