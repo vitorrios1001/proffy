@@ -20,3 +20,4 @@ const currentServer = http.createServer({} , server)
 currentServer.listen(PORT, onStart)
 // tslint:disable-next-line:no-console
 console.log(`Server up and running on https://localhost:${PORT}`)
+console.log(`Started in env: ${config.NODE_ENV}`)
