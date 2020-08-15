@@ -1,19 +1,17 @@
 import * as dotEnvSafe from 'dotenv-safe'
 import * as path from 'path'
 
+let envPath = '.env'
+
 if (process.env.NODE_ENV !== 'production') {
-  let envPath = '.env'
-
-  if (process.env.NODE_ENV) {
-    envPath = `${envPath}.${process.env.NODE_ENV}`
-  }
-
-  dotEnvSafe.config({
-    allowEmptyValues: true,
-    example: path.resolve(__dirname, '..', '..', '.env.example'),
-    path: path.resolve(process.cwd(), envPath),
-  })
+  envPath = `${envPath}.${process.env.NODE_ENV}`
 }
+
+dotEnvSafe.config({
+  allowEmptyValues: true,
+  path: path.resolve(process.cwd(), envPath),
+})
+
 
 interface Config {
   readonly DB: {
