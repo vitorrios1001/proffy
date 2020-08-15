@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormHandles, SubmitHandler } from '@unform/core'
 import { Form } from '@unform/web'
+import Recaptcha, { ReCAPTCHA } from 'react-google-recaptcha'
 
 import Header from '../../components/Header'
 import Input from '../../components/Forms/Input'
@@ -26,6 +27,7 @@ const INITIAL_SCHEDULE: ScheduleItem = {
 }
 
 const TeacherForm = () => {
+  const recaptchaRef = React.useRef<ReCAPTCHA>(null)
   const history = useHistory()
   const formRef = React.useRef<FormHandles>(null)
   const [scheduleItems, setScheduleItems] = React.useState<ScheduleItem[]>([INITIAL_SCHEDULE])
@@ -42,7 +44,9 @@ const TeacherForm = () => {
         abortEarly: false,
       });
 
-      const result = await saveTeacher(data)
+      const recaptcha = await recaptchaRef?.current?.executeAsync() || null
+
+      const result = await saveTeacher({ ...data, recaptcha })
 
       if (result) {
         history.push('/')
@@ -130,6 +134,11 @@ const TeacherForm = () => {
           </footer>
         </Form>
       </main>
+      <Recaptcha
+        ref={recaptchaRef}
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY as string}
+        size="invisible"
+      />
     </div>
   )
 }

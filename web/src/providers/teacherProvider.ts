@@ -6,6 +6,10 @@ import { FormDataTeacher, TeacherResponse } from '../models/teacherModel'
 
 import api from '../service'
 
+interface FormDataTeacherProps extends FormDataTeacher {
+  recaptcha: string | null
+}
+
 const useTeacher = () => {
   const [teachers, setTeachers] = React.useState<TeacherResponse[]>([])
 
@@ -22,7 +26,7 @@ const useTeacher = () => {
     }
   }
 
-  const saveTeacher = async (dataForm: FormDataTeacher) => {
+  const saveTeacher = async (dataForm: FormDataTeacherProps) => {
     const { ok } = await api.post('/classes', dataForm)
 
     if (!ok) {
