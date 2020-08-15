@@ -34,7 +34,6 @@ interface Config {
   }
 
   readonly RECAPTCHA: {
-    readonly SITE_KEY: string
     readonly SECRET_KEY: string
   }
 
@@ -57,7 +56,6 @@ const {
   DB_PASSWORD,
   DB_PORT = '5432',
   DB_USERNAME,
-  RECAPTCHA_SITE_KEY,
   RECAPTCHA_SECRET_KEY,
   LOGGING_COMBINED_FILE = 'combined.log',
   LOGGING_ERROR_FILE = 'server.log',
@@ -75,7 +73,6 @@ const config: Config = {
   },
 
   RECAPTCHA: {
-    SITE_KEY: RECAPTCHA_SITE_KEY as string,
     SECRET_KEY: RECAPTCHA_SECRET_KEY as string
   },
 
