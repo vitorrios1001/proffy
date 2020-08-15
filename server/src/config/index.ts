@@ -4,7 +4,7 @@ import * as path from 'path'
 let envPath = '.env'
 
 if (process.env.NODE_ENV !== 'production') {
-  envPath = `${envPath}.${process.env.NODE_ENV}`
+  envPath = `${envPath}.development`
 }
 
 dotEnvSafe.config({
