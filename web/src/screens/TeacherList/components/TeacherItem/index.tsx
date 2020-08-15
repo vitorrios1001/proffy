@@ -3,6 +3,7 @@ import React from 'react'
 import { TeacherResponse } from '../../../../models/teacherModel'
 import { formatterCurrencyValue } from '../../../../utils/formatter'
 import { useConnectionsEffects } from '../../../../providers/connectionsProvider'
+import { onlyNumbers } from '../../../../utils/numbers'
 
 import whatsappIcon from '../../../../assets/images/icons/whatsapp.svg'
 
@@ -33,7 +34,7 @@ const TeacherItem = ({ teacher }: Props) => {
           <strong>{formatterCurrencyValue(teacher.cost)}</strong>
         </p>
         <a
-          href={`https://wa.me/${teacher.whatsapp}`}
+          href={`https://wa.me/${onlyNumbers(teacher.whatsapp)}`}
           onClick={() => createNewConnection(teacher.user_id)}
           target="_blank"
           rel="noopener noreferrer"
