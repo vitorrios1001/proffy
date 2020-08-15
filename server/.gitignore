@@ -1,2 +1,8 @@
 
 *.sqlite
+/dist
+/database
+
+.env
+.env.development
+.env.production

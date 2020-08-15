@@ -1,9 +1,14 @@
 import path from 'path'
+import config from './src/config'
 
 module.exports = {
-  client: 'sqlite3',
+  client: 'pg',
+  version: '7.2',
   connection: {
-    filename: path.resolve(__dirname, 'database', 'database.sqlite'),
+    host : config.DB.HOST,
+    user : config.DB.USER,
+    password : config.DB.PASSWORD,
+    database : config.DB.NAME
   },
   migrations: {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
