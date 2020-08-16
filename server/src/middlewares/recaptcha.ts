@@ -25,6 +25,8 @@ const validateRecaptcha = async (req: Request, res: Response, next: NextFunction
 
   const { data } = await recaptchaApi.post<ResponseRecaptcha>(`/siteverify?secret=${SECRET_KEY}&response=${recaptcha}`)
   
+  console.log('recaptcha', data)
+
   if (data?.success) {
     next()
   }
