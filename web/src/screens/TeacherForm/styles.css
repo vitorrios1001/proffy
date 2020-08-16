@@ -14,7 +14,6 @@
   border-radius: 0.8rem;
   margin: -3.2rem auto 3.2rem;
   padding-top: 6.4rem;
-  overflow: hidden;
 }
 
 #page-teacher-form main label {
@@ -64,6 +63,7 @@
   background: var(--color-box-footer);
   border-top: 1px solid var(--color-line-in-white);
   margin-top: 6.4rem;
+  border-radius: 0 0 0.8rem 0.8rem;
 }
 
 #page-teacher-form main footer p {

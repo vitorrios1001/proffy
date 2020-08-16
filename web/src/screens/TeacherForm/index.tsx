@@ -2,16 +2,21 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { FormHandles, SubmitHandler } from '@unform/core'
 import { Form } from '@unform/web'
+import Recaptcha, { ReCAPTCHA } from 'react-google-recaptcha'
 
 import Header from '../../components/Header'
 import Input from '../../components/Forms/Input'
 import Select from '../../components/Forms/Select'
 import Textarea from '../../components/Forms/Textarea'
 import warningIcon from '../../assets/images/icons/warning.svg'
+import CurrencyInput from '../../components/Forms/CurrencyInput'
+import MaskedInput from '../../components/Forms/MaskedInput'
 
 import { ScheduleItem, FormDataTeacher } from '../../models/teacherModel'
 import { SUBJECT_LIST, WEEK_DAYS } from '../../constants'
 import { useTeacherEffects } from '../../providers/teacherProvider'
+import { setMessageErrors} from '../../utils/formValidation'
+import { schema } from './validation'
 
 import './styles.css'
 
@@ -22,6 +27,7 @@ const INITIAL_SCHEDULE: ScheduleItem = {
 }
 
 const TeacherForm = () => {
+  const recaptchaRef = React.useRef<ReCAPTCHA>(null)
   const history = useHistory()
   const formRef = React.useRef<FormHandles>(null)
   const [scheduleItems, setScheduleItems] = React.useState<ScheduleItem[]>([INITIAL_SCHEDULE])
@@ -33,10 +39,20 @@ const TeacherForm = () => {
   }
 
   const handleSubmit: SubmitHandler<FormDataTeacher> = async (data) => {
-    const result = await saveTeacher(data)
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
-    if (result) {
-      history.push('/')
+      const recaptcha = await recaptchaRef?.current?.executeAsync() || null
+
+      const result = await saveTeacher({ ...data, recaptcha })
+
+      if (result) {
+        history.push('/')
+      }
+    } catch (error) {
+      setMessageErrors(error, formRef.current)
     }
   }
 
@@ -54,7 +70,13 @@ const TeacherForm = () => {
 
             <Input name="name" label="Nome completo" />
             <Input name="avatar" label="Avatar" />
-            <Input name="whatsapp" label="WhatsApp" />
+            
+            <MaskedInput
+              mask="(99) 9 9999-9999"
+              name="whatsapp"
+              label="WhatsApp"
+            />
+            
             <Textarea name="bio" label="Biografia" />
 
           </fieldset>
@@ -69,7 +91,7 @@ const TeacherForm = () => {
               options={SUBJECT_LIST}
             />
 
-            <Input  
+            <CurrencyInput
               name="cost"
               label="Custo da sua hora por aula"
             />
@@ -112,6 +134,11 @@ const TeacherForm = () => {
           </footer>
         </Form>
       </main>
+      <Recaptcha
+        ref={recaptchaRef}
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY as string}
+        size="invisible"
+      />
     </div>
   )
 }

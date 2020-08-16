@@ -60,7 +60,8 @@ a {
 }
 
 form .input-block > span.field-error,
-form .textarea-block > span.field-error,
+form .currency-input-block > span.field-error,
+form .masked-input-block > span.field-error,
 form .select-block > span.field-error {
   position: absolute;
   right: 0;
