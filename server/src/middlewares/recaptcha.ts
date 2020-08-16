@@ -27,11 +27,11 @@ const validateRecaptcha = async (req: Request, res: Response, next: NextFunction
   
   console.log('recaptcha', data)
 
-  if (data?.success) {
-    next()
+  if (!data?.success) {
+    return res.status(400).json({ error: 'Recaptcha is refused'})
   }
-
-  return res.status(400).json({ error: 'Recaptcha is refused'})
+  
+  next()
 }
 
 export { validateRecaptcha }
