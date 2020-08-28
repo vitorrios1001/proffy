@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { recaptchaApi } from '../services/request'
+import { recaptchaApi } from '../utils/request'
 import config from '../config'
 
 const { RECAPTCHA: { SECRET_KEY }, NODE_ENV } = config
