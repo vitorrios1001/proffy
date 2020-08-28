@@ -3,7 +3,7 @@ import * as path from 'path'
 let envPath = '.env'
 
 if (process.env.NODE_ENV !== 'production') {
-  envPath = `${envPath}.development`
+  envPath = `${envPath}.${process.env.NODE_ENV}`
 }
 
 dotEnvSafe.config({
@@ -11,7 +11,7 @@ dotEnvSafe.config({
   path: path.resolve(process.cwd(), envPath),
 })
 
-type EnvType = 'development' | 'production'
+type EnvType = 'development' | 'production' | 'test'
 
 type LoggingLevelType = 
   |'error'
@@ -50,7 +50,7 @@ interface Config {
 
 const {
   SERVER_PORT = '3333',
-  NODE_ENV = 'development',
+  NODE_ENV,
   DB_HOST,
   DB_NAME,
   DB_PASSWORD,

@@ -1,7 +1,16 @@
+import path from 'path'
 import knex from 'knex'
 import config from '../config'
 
-const db = knex({
+const dbTest = knex({
+  client: 'sqlite3',
+  connection: {
+    filename: path.resolve(__dirname, '..', '..', '__tests__', 'database.sqlite'),
+  },
+  useNullAsDefault: true,
+})
+
+const dbDefault = knex({
   client: 'pg',
   version: '7.2',
   connection: {
@@ -12,5 +21,7 @@ const db = knex({
   },
   useNullAsDefault: true,
 })
+
+const db = config.NODE_ENV === 'test' ? dbTest : dbDefault
 
 export { db }
