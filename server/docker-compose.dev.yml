@@ -14,7 +14,7 @@ services:
     volumes:
       - ${DB_VOLUME}:/var/lib/postgresql/data
     networks:
-      - postgres_compose_network
+      - postgres_compose_network_1
   
   pgadmin_compose:
     image: dpage/pgadmin4
@@ -28,8 +28,8 @@ services:
     volumes:
       - ${PGADMIN_VOLUME}:/var/lib/pgadmin
     networks:
-      - postgres_compose_network
+      - postgres_compose_network_1
 
 networks: 
-  postgres_compose_network:
+  postgres_compose_network_1:
     driver: bridge
