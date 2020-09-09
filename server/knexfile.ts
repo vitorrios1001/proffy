@@ -1,11 +1,7 @@
 import path from 'path'
 import config from './src/config'
 
-const migrations = {
-  directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
-}
-
-const connectionDefault = {
+const connection = {
   client: 'pg',
   version: '7.2',
   connection: {
@@ -14,19 +10,10 @@ const connectionDefault = {
     password : config.DB.PASSWORD,
     database : config.DB.NAME
   },
-  migrations,
-  useNullAsDefault: true,
-}
-
-const connectionTest = {
-  client: 'sqlite3',
-  connection: {
-    filename: path.resolve(__dirname, '__tests__', 'database.sqlite'),
+  migrations: {
+    directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
   },
-  migrations,
   useNullAsDefault: true,
 }
 
-const dbConnection = config.NODE_ENV === 'test' ? connectionTest : connectionDefault
-
-module.exports = dbConnection
+module.exports = connection
