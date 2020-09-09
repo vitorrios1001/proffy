@@ -11,7 +11,7 @@ export const aleatory = {
       name: faker.name.findName(),
       avatar: faker.internet.avatar(),
       whatsapp: faker.phone.phoneNumber(),
-      bio: faker.random.words(30),
+      bio: faker.random.words(10),
     })
   },
   subject: (): string => subjects[faker.random.number({ min: 0, max: subjects.length - 1 })],
