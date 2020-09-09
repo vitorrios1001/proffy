@@ -1,7 +1,7 @@
 import path from 'path'
 import config from './src/config'
 
-module.exports = {
+const connection = {
   client: 'pg',
   version: '7.2',
   connection: {
@@ -14,4 +14,6 @@ module.exports = {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
   },
   useNullAsDefault: true,
-};
+}
+
+module.exports = connection

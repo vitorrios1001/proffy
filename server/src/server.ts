@@ -10,19 +10,22 @@ import { handleErrors } from './middlewares/handleErrors'
 
 const app = express()
 
-app.use(
-  morgan(config.LOGGING.TYPE, {
-    skip: (req: Request, res: Response) => res.statusCode < httpStatus.BAD_REQUEST,
-    stream: process.stderr,
-  }),
-)
+if (config.NODE_ENV !== 'test') {
+  app.use(
+    morgan(config.LOGGING.TYPE, {
+      skip: (req: Request, res: Response) => res.statusCode < httpStatus.BAD_REQUEST,
+      stream: process.stderr,
+    }),
+  )
+  
+  app.use(
+    morgan(config.LOGGING.TYPE, {
+      skip: (req: Request, res: Response) => res.statusCode >= httpStatus.BAD_GATEWAY,
+      stream: process.stdout,
+    }),
+  )
+}
 
-app.use(
-  morgan(config.LOGGING.TYPE, {
-    skip: (req: Request, res: Response) => res.statusCode >= httpStatus.BAD_GATEWAY,
-    stream: process.stdout,
-  }),
-)
 
 app.use(cors())
 app.use(compression())

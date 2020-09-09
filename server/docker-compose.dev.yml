@@ -2,6 +2,8 @@ version: '3'
 
 services: 
   postgres_db:
+    env_file: 
+      - .env.development
     image: postgres
     container_name: postgres_db
     restart: always
@@ -14,9 +16,11 @@ services:
     volumes:
       - ${DB_VOLUME}:/var/lib/postgresql/data
     networks:
-      - postgres_compose_network
+      - postgres_compose_network_1
   
   pgadmin_compose:
+    env_file: 
+      - .env.development
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
@@ -28,8 +32,8 @@ services:
     volumes:
       - ${PGADMIN_VOLUME}:/var/lib/pgadmin
     networks:
-      - postgres_compose_network
+      - postgres_compose_network_1
 
 networks: 
-  postgres_compose_network:
+  postgres_compose_network_1:
     driver: bridge

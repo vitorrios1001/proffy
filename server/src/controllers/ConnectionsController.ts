@@ -1,35 +1,42 @@
 import { Request, Response } from "express"
-import { db } from "../database/connection"
+import { ConnectionsService } from "../services/ConnectionsService"
 
 class ConnectionsController {
-  async index(req: Request, res: Response) {
-    const [totalConnections] = await db('connections').count('* as total')
+  constructor(
+    private connectionsService: ConnectionsService
+  )
+  {}
 
-    const { total } = totalConnections
+  async index(req: Request, res: Response): Promise<Response> {
+    try {
+      const total = await this.connectionsService.totalConnnections()
 
-    return res.status(200).json({ total })
+      return res.status(200).json({ total })
+    } catch (error) {
+      return res.status(400).json({
+        message: error.message || 'Unexpected error'
+      })
+    }
   }
   
-  async create(req: Request, res: Response) {
-    const { user_id } = req.body
+  async create(req: Request, res: Response): Promise<Response> {
+    try {
+      const { user_id } = req.body
 
-    if (!user_id) {
+      if (!user_id) {
+        return res.status(400).json({
+          message: 'Field user_id is required'
+        })
+      }
+
+      await this.connectionsService.createConnection(user_id)
+
+      return res.status(200)
+    } catch (error) {
       return res.status(400).json({
-        error: 'Field user_id is required'
+        message: error.message || 'Unexpected error'
       })
     }
-
-    const [userFound] = await db('users').where('users.id', '=', user_id)
-
-    if (!userFound) {
-      return res.status(400).json({
-        error: 'User not found'
-      })
-    }
-
-    await db('connections').insert({ user_id })
-
-    return res.status(200).send()
   }
 }
 
