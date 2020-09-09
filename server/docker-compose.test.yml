@@ -1,11 +1,11 @@
 version: '3'
 
 services: 
-  postgres_db:
+  postgres_db_test:
     env_file: 
-      - .env
+      - .env.test
     image: postgres
-    container_name: postgres_db
+    container_name: postgres_db_test
     restart: always
     ports:
       - ${DB_PORT}:5432
@@ -13,5 +13,4 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ${DB_VOLUME}:/var/lib/postgresql/data
+

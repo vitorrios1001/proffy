@@ -2,6 +2,8 @@ version: '3'
 
 services: 
   postgres_db:
+    env_file: 
+      - .env.development
     image: postgres
     container_name: postgres_db
     restart: always
@@ -17,6 +19,8 @@ services:
       - postgres_compose_network_1
   
   pgadmin_compose:
+    env_file: 
+      - .env.development
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
