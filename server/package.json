@@ -11,8 +11,9 @@
     "dev2": "NODE_ENV=development tsnd --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
-    "pretest": "rm -rf __tests__/database.sqlite && NODE_ENV=test knex --knexfile knexfile.ts migrate:latest",
-    "test": "NODE_ENV=test jest"
+    "pretest": "make run-test && NODE_ENV=test knex --knexfile knexfile.ts migrate:latest",
+    "test": "NODE_ENV=test jest --coverage",
+    "posttest": "make stop-test"
   },
   "dependencies": {
     "apisauce": "^1.1.2",
