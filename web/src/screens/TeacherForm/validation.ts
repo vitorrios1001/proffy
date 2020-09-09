@@ -15,11 +15,13 @@ const schemaSchedule = Yup.object().shape({
 
 const schema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Mínimo de 3 caracteres')
+    .min(3, m.min(3))
+    .max(255, m.min(255))
     .required(m.isRequired),
 
   avatar: Yup.string()
     .url(m.isUrl)
+    .max(255, m.min(255))
     .required(m.isRequired),
 
   whatsapp: Yup.string()
@@ -28,7 +30,7 @@ const schema = Yup.object().shape({
   
   bio: Yup.string()
     .min(3, m.min(3))
-    .max(999999, m.max(999999))
+    .max(255, m.max(255))
     .required(m.isRequired),
 
   subject: Yup.string().required(m.isRequired),
