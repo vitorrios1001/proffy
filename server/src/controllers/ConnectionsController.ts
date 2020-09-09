@@ -25,7 +25,7 @@ class ConnectionsController {
 
       if (!user_id) {
         return res.status(400).json({
-          error: 'Field user_id is required'
+          message: 'Field user_id is required'
         })
       }
 
