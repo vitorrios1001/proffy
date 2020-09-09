@@ -16,7 +16,7 @@ export class ConnectionsRepository implements IConnectionsRepository {
   
       const { total } = totalConnections
   
-      return total
+      return parseInt(total)
     } catch (error) {
       throw new Error(error.message);
     }
