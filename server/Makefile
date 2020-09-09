@@ -1,13 +1,20 @@
-include .env
-
-.PHONY: run-dev
-
 run-dev:
 	@echo "---- Running Database: Proffy develop ----"
 	@docker-compose -f docker-compose.dev.yml down
 	@docker-compose -f docker-compose.dev.yml up -d
 
-.PHONY: deploy
+stop-dev:
+	@echo "---- Stoping Database: Proffy develop ----"
+	@docker-compose -f docker-compose.dev.yml down
+
+run-test:
+	@echo "---- Running Database: Proffy testtest ----"
+	@docker-compose -f docker-compose.test.yml down
+	@docker-compose -f docker-compose.test.yml up -d
+
+stop-test:
+	@echo "---- Stoping Database: Proffy test ----"
+	@docker-compose -f docker-compose.test.yml down
 
 deploy:
 	@[ -f .env ] 
@@ -22,9 +29,3 @@ deploy:
 	@npm run knex:migrate
 	@echo "---- Start application ----"
 	@pm2 restart proffy
-
-.PHONY: stop-dev
-
-stop-dev:
-	@echo "---- Stoping Database: Proffy develop ----"
-	@docker-compose -f docker-compose.dev.yml down
