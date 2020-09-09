@@ -7,9 +7,9 @@ const tables = [
   'connections',
 ]
 
-function truncate () {
+async function truncate () {
   return Promise.all(tables.map(table => {
-    return db.raw(`DELETE FROM ${table}`)
+    return db.raw(`TRUNCATE TABLE ${table} CASCADE;`)
   }))
 };
 
