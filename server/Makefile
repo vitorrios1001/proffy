@@ -8,7 +8,7 @@ stop-dev:
 	@docker-compose -f docker-compose.dev.yml down
 
 run-test:
-	@echo "---- Running Database: Proffy testtest ----"
+	@echo "---- Running Database: Proffy test ----"
 	@docker-compose -f docker-compose.test.yml down
 	@docker-compose -f docker-compose.test.yml up -d
 
@@ -17,7 +17,6 @@ stop-test:
 	@docker-compose -f docker-compose.test.yml down
 
 deploy:
-	@[ -f .env ] 
 	@echo "---- Updating project ----"
 	@npm install
 	@echo "---- Running Database: Proffy Production----"

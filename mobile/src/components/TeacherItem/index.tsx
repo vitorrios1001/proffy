@@ -16,10 +16,16 @@ interface Props {
 }
 
 const TeacherItem = ({ teacher }: Props) => {
+  const [favorited, setFavorited] = React.useState(false)
   const { toggleFavoriteTeacher } = useFavoriteEffects()
   const { favoriteds } = useFavoriteState()
 
-  const favorited = !!favoriteds.find(favorited => favorited.id === teacher.id)
+  React.useEffect(() => {
+    setFavorited(!!favoriteds.find(favorited => favorited.id === teacher.id))
+    console.log('Mudou')
+  }, [favoriteds])
+
+  // const favorited = !!favoriteds.find(favorited => favorited.id === teacher.id)
 
   return (
     <View style={styles.container}>

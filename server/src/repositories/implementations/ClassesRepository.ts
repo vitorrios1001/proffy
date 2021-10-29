@@ -7,7 +7,7 @@ import { convertHourToMinutes } from "~/utils/convertHourToMinutes";
 
 export class ClassesRepository implements IClassesRepository {
   async getClassesFiltered(week_day: number, subject: string, timeInMinutes: number): Promise<ClassModel[]> {
-    const classes = await db('classes')
+    const classes = await db<ClassModel>('classes')
       .whereExists(function() {
         this.select('*')
           .from('class_schedule')
@@ -18,7 +18,7 @@ export class ClassesRepository implements IClassesRepository {
       })
       .where('classes.subject', '=', subject)
       .join('users', 'classes.user_id', '=', 'users.id')
-      .select(['classes.*', 'users.*'])
+      .select(['classes.*', 'users.*']).returning('classes')
 
     return classes
   }

@@ -67,6 +67,7 @@ const Filter = () => {
         >
           {
             SUBJECT_LIST.map(subject => (
+              
               <Picker.Item key={subject.value} label={subject.label} value={subject.value} />
             ))
           }
